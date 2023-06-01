@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Habitant;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class HabitantController extends Controller
 {
@@ -36,9 +37,8 @@ class HabitantController extends Controller
         return redirect("/habitants");
     }
 
-    public function edit($id) {
+    public function edit(Habitant $habitant) {
         $villes = Ville::all();
-        $habitant = Habitant::find($id);
         return view("habitants.edit", ["habitant" => $habitant, "villes" => $villes]);
     }
 
@@ -71,5 +71,11 @@ class HabitantController extends Controller
     public function destroy($id) {
         Habitant::destroy($id);
         return redirect("/habitants");
+    }
+
+    public function ville(Ville $ville) {
+        return [
+            "ville" => $ville
+        ];
     }
 }

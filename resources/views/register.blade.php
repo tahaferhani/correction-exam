@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Créer un habitant</title>
+    <title>Inscription</title>
 
     <style>
         * {
@@ -39,20 +38,12 @@
     </style>
 </head>
 <body>
-   <form action="/habitants" method="POST" enctype="multipart/form-data">
+   <form action="/register" method="POST">
     @csrf
-    {{csrf_field()}}
-    <input type="text" placeholder="CIN" name="cin">
-    <input type="text" placeholder="Nom" name="nom">
-    <input type="text" placeholder="Prénom" name="prenom">
-    <select name="ville_id">
-        <option value="" selected disabled>Séléctionner une ville</option>
-        @foreach($villes as $ville)
-            <option value="{{$ville->id}}">{{$ville->nom}} ({{$ville->nombreHabitats}})</option>
-        @endforeach
-    </select>
-    <input type="file" name="photo">
-    <button type="submit">Créer</button>
+    <input type="text" placeholder="Login" name="login">
+    <input type="text" placeholder="Mot de passe" name="password">
+    <input type="text" readonly value="admin" name="role">
+    <button type="submit">S'insrire</button>
    </form>
 </body>
 </html>

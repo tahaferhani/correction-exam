@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HabitantController;
+use App\Http\Controllers\UserController;
+use App\Models\Ville;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/habitants', [HabitantController::class, "index"]);
-Route::get('/habitants/create', [HabitantController::class, "create"]);
+Route::get('/habitants/create', [HabitantController::class, "create"])->middleware("check-admin");
 Route::post('/habitants', [HabitantController::class, "store"]);
-Route::get('/habitants/edit/{id}', [HabitantController::class, "edit"]);
+Route::get('/habitants/edit/{habitant}', [HabitantController::class, "edit"]);
 Route::put('/habitants', [HabitantController::class, "update"]);
 Route::delete('/habitants/{id}', [HabitantController::class, "destroy"]);
+
+
+//Route::model('vil', Ville::class);
+Route::get("/villes/{ville}", [HabitantController::class, "ville"]);
+
+Route::get("/register", function() {
+    return view("register");
+});
+Route::view("/register", "register");
+Route::post("/register", [UserController::class, "register"]);
+
+Route::view("/login", "login");
+Route::post("/login", [UserController::class, "login"]);
